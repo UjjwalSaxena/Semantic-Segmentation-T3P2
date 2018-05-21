@@ -51,22 +51,22 @@ Stride:2, kernel:4x4, source: https://distill.pub/2016/deconv-checkerboard/
 
 Thus the padded input image depends upon the stride as
 
-**Ip_d= (I-1)*s**
+**Ip_d= (I-1) x s**
 where s=stride, I= Input dimension, and Ip_d is padded input dimension.
 And the output Image dimension depends upon padded input image dimesion and kernel size as below:
 
 **O_d= Ip_d+ k;
-O_d= (I-1)*s+k; where k is kernel size.**
+O_d= (I-1) x s+k; where k is kernel size.**
 This equation holds true whether kernel size is greater or smaller than the stride and can be verified here. However, one of my colleague has derived a better equation while playing with some code on tensorflow which says.
 
-**O_d = I * s+ max(k — s, 0); where all variables are same as above.
+**O_d = I x s+ max(k — s, 0); where all variables are same as above.
 I suggest playing around with the code a bit.** 
 
 Same Padding is simpler but rather mysterious. Same padding always pads the empty rows and columns on the outside of the image. In normal convolution even if padding is same and the kernel can sweep the complete image properly with the mentioned stride, no padding is actually done on the input image. However if some rows or columns are left due to the kernel size and stride value, some extra columns and rows are added to cover the whole image.
 
 This is not the case in transposed convolution. Output image dimension is not dependent on kernel size of the filter but increases by the number of times of mentioned stride.
 
-**O_d= I_d*s;**
+**O_d= I_d x s;**
 where s=stride, I_d= Input dimension, and O_d is padded input dimension.
 
 Output dimension is calculated by the system beforehand in this case and then the image is padded on the outside accordingly before applying the filter to maintain the output dimension, the same as calculated, after the deconvolution. Priority is given to the addition of columns, equally on both sides of the image. However if they can’t be added equally, the remaining extra column is added to the right side.
