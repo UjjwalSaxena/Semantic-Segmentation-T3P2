@@ -64,34 +64,34 @@ def layers( vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
                                    kernel_initializer= tf.random_normal_initializer(stddev=0.01),
                                    kernel_regularizer= tf.contrib.layers.l2_regularizer(1e-3),name='new_layer7a_out')
     # upsample
-    layer4a_in1 = tf.layers.conv2d_transpose(layer7a_out, num_classes, 4, 
+    layer8a_in1 = tf.layers.conv2d_transpose(layer7a_out, num_classes, 4, 
                                              strides= (2, 2), 
                                              padding= 'same', 
                                              kernel_initializer= tf.random_normal_initializer(stddev=0.01), 
                                              kernel_regularizer= tf.contrib.layers.l2_regularizer(1e-3), name='new_layer4a_in1')
     # make sure the shapes are the same!
     # 1x1 convolution of vgg layer 4
-    layer4a_in2 = tf.layers.conv2d(vgg_layer4_out, num_classes, 1, 
+    layer8a_in2 = tf.layers.conv2d(vgg_layer4_out, num_classes, 1, 
                                    padding= 'same', 
                                    kernel_initializer= tf.random_normal_initializer(stddev=0.01), 
                                    kernel_regularizer= tf.contrib.layers.l2_regularizer(1e-3),  name='new_layer4a_in2')
     # skip connection (element-wise addition)
-    layer4a_out = tf.add(layer4a_in1, layer4a_in2)
+    layer8a_out = tf.add(layer8a_in1, layer8a_in2)
     # upsample
-    layer3a_in1 = tf.layers.conv2d_transpose(layer4a_out, num_classes, 4,  
+    layer9a_in1 = tf.layers.conv2d_transpose(layer8a_out, num_classes, 4,  
                                              strides= (2, 2), 
                                              padding= 'same', 
                                              kernel_initializer= tf.random_normal_initializer(stddev=0.01), 
                                              kernel_regularizer= tf.contrib.layers.l2_regularizer(1e-3),name='new_layer3a_in1')
     # 1x1 convolution of vgg layer 3
-    layer3a_in2 = tf.layers.conv2d(vgg_layer3_out, num_classes, 1, 
+    layer9a_in2 = tf.layers.conv2d(vgg_layer3_out, num_classes, 1, 
                                    padding= 'same', 
                                    kernel_initializer= tf.random_normal_initializer(stddev=0.01), 
                                    kernel_regularizer= tf.contrib.layers.l2_regularizer(1e-3), name='new_layer3a_in2')
     # skip connection (element-wise addition)
-    layer3a_out = tf.add(layer3a_in1, layer3a_in2)
+    layer9a_out = tf.add(layer9a_in1, layer9a_in2)
     # upsample
-    nn_last_layer = tf.layers.conv2d_transpose(layer3a_out, num_classes, 16,  
+    nn_last_layer = tf.layers.conv2d_transpose(layer9a_out, num_classes, 16,  
                                                strides= (8, 8), 
                                                padding= 'same', 
                                                kernel_initializer= tf.random_normal_initializer(stddev=0.01), 
@@ -171,19 +171,12 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
       sess.run(tf.global_variables_initializer())
       
     print("Training started..")
-
+    prob= 0.8
+    rate= 0.0001
     for i in range(epochs):
         print("Epoch {}".format(i+1))
-        
-#         X_train, y_train = get_batches_fn(batch_size)
-#         len(X_train)
         for image,label in get_batches_fn(batch_size):
-            ##image= np.copy(image)
-            ##print("image=========================>",image.shape)
-            
-#             image= X_train[index]
-#             label= y_train[index]
-            a,loss= sess.run([train_op,cross_entropy_loss], feed_dict={input_image: image, correct_label: label, keep_prob: 0.8, learning_rate: 0.0001})
+            a,loss= sess.run([train_op,cross_entropy_loss], feed_dict={input_image: image, correct_label: label, keep_prob: prob, learning_rate: rate})
             print("Loss {}".format(loss))  
         print()    
         
@@ -253,12 +246,5 @@ def run():
         builder.save() 
         print("model saved")
 
-
-
-
-
 if __name__ == '__main__':
     run()
-
-
-
