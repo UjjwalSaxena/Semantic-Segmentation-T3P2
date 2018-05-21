@@ -11,10 +11,12 @@ There are various sectors which find a lot of potential in semantic segmentation
 
 Semantic segmentation is understanding an image at pixel level i.e, we want to assign each pixel in the image an object class. For example, check out the following images.
 
-![png](./readmeImages/2.jpg)
+![png](./readmeImages/2.jpeg)
+
 Input Image, source: http://host.robots.ox.ac.uk/pascal/VOC/voc2012/segexamples/index.html
 
 ![png](./readmeImages/3.png)
+
 semantic segmentation. Source: http://host.robots.ox.ac.uk/pascal/VOC/voc2012/segexamples/index.html
 
 In the above image there are only three classes, Human, Bike and everything else. FCN can be trained to detect road, plants and sky as well. VOC2012 and MSCOCO are the most important datasets for semantic segmentation.
@@ -34,14 +36,19 @@ While going through padding differences in transposed convolution, I learnt some
 Talking more about Valid padding. As you increase the stride of the kernel, Input image is padded between the pixels. If the stride is 2, there will be one row and column padded between each existing row and column. If stride is 1 there won’t be any padding.
 
 ![png](./readmeImages/5.png)
+
 Stride:1, kernel:3x3, source: https://distill.pub/2016/deconv-checkerboard/
 
 ![png](./readmeImages/6.png)
+
 Stride:2, kernel:3x3, source: https://distill.pub/2016/deconv-checkerboard/
+
 Keeping the k same and increasing stride decreases overlapping.This overlapping refers to the common area calculated by the adjacent kernel actions. Let’s also visualize the opposite effect.
 
 ![png](./readmeImages/7.png)
+
 Stride:2, kernel:4x4, source: https://distill.pub/2016/deconv-checkerboard/
+
 Thus the padded input image depends upon the stride as
 
 **Ip_d= (I-1)*s**
@@ -59,11 +66,12 @@ Same Padding is simpler but rather mysterious. Same padding always pads the empt
 
 This is not the case in transposed convolution. Output image dimension is not dependent on kernel size of the filter but increases by the number of times of mentioned stride.
 
-O_d= I_d*s;
+**O_d= I_d*s;**
 where s=stride, I_d= Input dimension, and O_d is padded input dimension.
+
 Output dimension is calculated by the system beforehand in this case and then the image is padded on the outside accordingly before applying the filter to maintain the output dimension, the same as calculated, after the deconvolution. Priority is given to the addition of columns, equally on both sides of the image. However if they can’t be added equally, the remaining extra column is added to the right side.
 
-So how can I up-sample an image using both of these filter?
+**So how can I up-sample an image using both of these filter?**
 
 It’s simple as now we have the equations. Suppose we want to upscale an image to two times of the original.
 
