@@ -88,12 +88,12 @@ For Valid padding you can set both the kernel and stride value to 2.
 However the performance of these filters is an area of experimentation. I found Same padding to be working better than the Valid padding here. Setting kernel size to an even number is not a good practice, but if you want to upscale by a factor of 2 using valid padding, there seems to be no other way.
 
 **Project Results**
-![png](./result/1526897938.1871526/um_000010.png.png)
-![png](./result/1526897938.1871526/um_000015.png.png)
-![png](./result/1526897938.1871526/um_000063.png.png)
-![png](./result/1526897938.1871526/um_000089.png.png)
-![png](./result/1526897938.1871526/umm_000030.png.png)
-![png](./result/1526897938.1871526/uu_000014.png.png)
+![png](./readmeImages/um_000010.png.png)
+![png](./readmeImages/um_000015.png.png)
+![png](./readmeImages/um_000063.png.png)
+![png](./readmeImages/um_000089.png.png)
+![png](./readmeImages/umm_000030.png.png)
+![png](./readmeImages/uu_000014.png.png)
 
 ### Setup
 ##### GPU
