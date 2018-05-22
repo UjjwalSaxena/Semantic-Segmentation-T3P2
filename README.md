@@ -1,3 +1,6 @@
+
+![Segmentation video](./readmeImages/sementation_video.mp4)
+
 # Semantic Segmentation
 ### Introduction
 Segmentation is essential for image analysis tasks. Semantic segmentation describes the process of associating each pixel of an image with a class label, (such as flower, person, road, sky, ocean, or car).
