@@ -1,5 +1,5 @@
 
-![Segmentation video](./readmeImages/sementation_video.mp4)
+![Segmentation gif](./readmeImages/segmentation_gif.gif)
 
 # Semantic Segmentation
 ### Introduction
