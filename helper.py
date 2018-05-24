@@ -87,23 +87,23 @@ def gen_batch_function(data_folder, image_shape):
                 gt_image_file = label_paths[os.path.basename(image_file)]
 
                 image = scipy.misc.imresize(scipy.misc.imread(image_file), image_shape)
-                image= am.augment_random(image, aug_types=['add_gravel','random_brightness','add_shadow'], volume='same')
+                #image= am.augment_random(image, aug_types=['add_gravel','random_brightness','add_shadow'], volume='same')
                 gt_image = scipy.misc.imresize(scipy.misc.imread(gt_image_file), image_shape)
-                f_image=cv2.flip(image, 1)
-                f_gt_image= cv2.flip(gt_image, 1)
+#                 f_image=cv2.flip(image, 1)
+#                 f_gt_image= cv2.flip(gt_image, 1)
                 
                 gt_bg = np.all(gt_image == background_color, axis=2)
                 gt_bg = gt_bg.reshape(*gt_bg.shape, 1)
                 gt_image = np.concatenate((gt_bg, np.invert(gt_bg)), axis=2)
                 
-                f_gt_bg = np.all(f_gt_image == background_color, axis=2)
-                f_gt_bg = f_gt_bg.reshape(*f_gt_bg.shape, 1)
-                f_gt_image = np.concatenate((f_gt_bg, np.invert(f_gt_bg)), axis=2)
+#                 f_gt_bg = np.all(f_gt_image == background_color, axis=2)
+#                 f_gt_bg = f_gt_bg.reshape(*f_gt_bg.shape, 1)
+#                 f_gt_image = np.concatenate((f_gt_bg, np.invert(f_gt_bg)), axis=2)
                 
                 images.append(image)
                 gt_images.append(gt_image)
-                images.append(f_image)
-                gt_images.append(f_gt_image)
+#                 images.append(f_image)
+#                 gt_images.append(f_gt_image)
 
             yield np.array(images), np.array(gt_images)
     return get_batches_fn
