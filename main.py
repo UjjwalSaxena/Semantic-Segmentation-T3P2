@@ -125,7 +125,7 @@ def optimize(nn_last_layer, correct_label, learning_rate, num_classes, mode="Tra
     reg_constant = 0.01  # Choose an appropriate one.
  
     cross_entropy  = tf.nn.softmax_cross_entropy_with_logits(labels=correct_label, logits=logits)
-    loss_operation = tf.reduce_mean(cross_entropy) + reg_constant * tf.reduce_mean(reg_losses)
+    loss_operation = tf.reduce_mean(cross_entropy) #+ reg_constant * tf.reduce_mean(reg_losses)
     optimizer = tf.train.AdamOptimizer(learning_rate = learning_rate) ##using Adam Optimizer
 #     training_operation = optimizer.minimize(loss_operation)
 
@@ -171,7 +171,7 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
       sess.run(tf.global_variables_initializer())
       
     print("Training started..")
-    prob= 0.8
+    prob= 0.5
     rate= 0.0001
     for i in range(epochs):
         print("Epoch {}".format(i+1))
@@ -190,7 +190,7 @@ tests.test_train_nn(train_nn)
 def run():
     num_classes = 2
     image_shape = (160, 576)
-    epochs= 15
+    epochs= 50
     batch_size=10
     mode='Train_All'
 #     mode='Transfer'
