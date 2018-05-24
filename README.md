@@ -1,5 +1,5 @@
 
-![Segmentation gif](./readmeImages/segmentation_gif.gif)
+![Segmentation gif](./readmeImages/segmentation_gif1.gif)
 
 # Semantic Segmentation
 ### Introduction
